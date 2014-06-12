@@ -1,0 +1,30 @@
+{
+  "name": "spheron-leap",
+  "private":true,
+  "version": "0.0.0",
+  "description": "Experiment using the Leap Motion to control the Sphero robotic ball",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Charlie Gerard <charlie.a.gerard@gmail.com>",
+  "license": "Need to check the licenses available",
+  "dependencies": {
+    "leapjs": "~0.2.0",
+    "spheron": "0.0.1"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "sphero",
+    "spheron",
+    "leap",
+    "motion",
+    "nodebot",
+    "nodebots"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/charliegerard/leap_sphero"
+  },
+}
