@@ -42,5 +42,5 @@ a bit more mellow when in liquid
 
 ##Next steps:
 
-* Set up an index.html file to display the fingers tracked in the browser.
+* At the moment, index.html working when launching python server but need to make it work with Node.
 
