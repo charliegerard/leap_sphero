@@ -40,3 +40,7 @@ Have fun and let me know if you have any issues or questions!
 * Set the variable `safeMode = false;` if you are trying it out in water, it's much more fun and Sphero is
 a bit more mellow when in liquid
 
+##Next steps:
+
+* Set up an index.html file to display the fingers tracked in the browser.
+
