@@ -42,32 +42,42 @@ var controlSphero = function(sphero) {
   controller.on('frame', function(frame) {
     if (frame.gestures.length) {
       var g = frame.gestures[0];
+      //Trying to make the Sphero turn purple when a heand in
+      // sphero.setRGB(0xFF00FF);
 
       if (g.type == 'swipe' && g.state ==='stop') {
         handleSwipe(g);
       }
-      if (g.type == 'circle') {
-        console.log('circle');
-        handleCircle(g);
-      }
+      // if (g.type == 'circle') {
+      //   //console.log('circle');
+      //   //handleCircle(g);
+      // }
 
     }
   });
 
   var handleCircle = function(g) {
-    sphero.write(spheron.commands.api.setHeading(10, { resetTimeout:true }));
+    // sphero.write(spheron.commands.api.setHeading(10, { resetTimeout:true }));
+    sphero.write(spheron.commands.api.setHeading(50, { resetTimeout:true }));
   };
 
   var handleSwipe = function(g) {
+    // var X = g.position[0] - g.startPosition[0] - 100;
+    // var Y = g.position[1] - g.startPosition[1] - 100;
+    // var Z = g.position[2] - g.startPosition[2] - 100;
     var X = g.position[0] - g.startPosition[0];
     var Y = g.position[1] - g.startPosition[1];
     var Z = g.position[2] - g.startPosition[2];
+    console.log("Z is ", Z)
+    console.log("X is ", X)
+    console.log("Y is ", Y)
 
     var aX = Math.abs(X);
     var aY = Math.abs(Y);
     var aZ = Math.abs(Z);
 
     var big = Math.max(aX, aY, aZ);
+    // var big = Math.max(aX, aZ, aY);
     var direction = '?';
 
     if (aX === big) {
@@ -152,6 +162,7 @@ ball.open(device);
 console.log("waiting for Sphero connection...");
 ball.on('open', function() {
   console.log('connected to Sphero');
+  // ball.setRGB(spheron.toolbelt.COLORS.PURPLE).setBackLED(255);
   ball.setRGB(spheron.toolbelt.COLORS.PURPLE).setBackLED(255);
   controlSphero(ball);
 });
