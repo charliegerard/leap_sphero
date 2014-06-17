@@ -1,5 +1,5 @@
 {
-  "name": "spheron-leap",
+  "name": "leap-sphero",
   "private":true,
   "version": "0.0.0",
   "description": "Experiment using the Leap Motion to control the Sphero robotic ball",

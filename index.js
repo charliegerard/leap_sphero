@@ -95,20 +95,10 @@ var controlSphero = function(sphero) {
       case 'LEFT':
         //sphero.roll(speed, heading, state, option)
         sphero.roll(70, 270, 1); //Heading is expressed in degrees so 270 will make the ball move to the left.
-        if (safeMode) {
-          setTimeout(function() {
-            stopSphero(sphero);
-          }, 2000);
-        }
         break;
       case 'RIGHT':
         sphero.heading = 90;
         sphero.roll(70, 90, 1);
-        if (safeMode) {
-          setTimeout(function() {
-            stopSphero(sphero);
-          }, 2000);
-        }
         break;
       case 'UP':
         stopSphero(sphero);
@@ -122,21 +112,22 @@ var controlSphero = function(sphero) {
         break;
       case 'FORWARD':
          sphero.roll(70, 0, 1);
-        if (safeMode) {
-          setTimeout(function() {
-            stopSphero(sphero);
-          }, 2000);
-        }
         break;
       case 'REVERSE':
         sphero.heading = 180;
         sphero.roll(70, 180, 1);
-        if (safeMode) {
-          setTimeout(function() {
-            stopSphero(sphero);
-          }, 2000);
-        }
         break;
+
+        /*--------------
+          If you want to add a delay between each action, add this in each case,
+          just before the break to add a 2s delay.
+        
+          if (safeMode) {
+           setTimeout(function() {
+             stopSphero(sphero);
+           }, 2000);
+        }
+        ---------------*/
     }
     console.log('Direction: %s', direction);
   }
