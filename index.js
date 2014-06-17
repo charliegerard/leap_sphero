@@ -1,14 +1,11 @@
-/* jshint node:true */
-/* If you are cloning this folder, just run 'npm install' in your terminal to install
-the node dependencies (leapjs and spheron), enable your bluetooth on your computer,
-and then simply run 'node index.js' in your terminal again to launch the app. */
+/* Read the README file if you have some troubles making this code work. */
 
-/*This code is not mine at the moment, I cloned it from this repo: https://github.com/alchemycs/spheron-leap */
+/* I started working on this code from this repo: https://github.com/alchemycs/spheron-leap */
 
 var Leap = require('leapjs');
 var spheron = require('spheron');
 
-// Set this to the device Sphero connects as on your computer
+// Set this to the device Sphero connects as on your computer.
 var device = '/dev/tty.Sphero-RBR-AMP-SPP';
 
 var safeMode = true; //Turn this off if Sphero is in water or you like to live dangerously!
@@ -21,17 +18,9 @@ var controlSphero = function(sphero) {
   controller.on('connect', function() {
     console.log('connected to leap motion');
   });
-  // I don't really need that.
-  // controller.on('protocol', function(p) {
-  //   console.log('protocol', p);
-  // });
   controller.on('ready', function() {
     console.log('ready');
   });
-  // Not necessary
-  // controller.on('blur', function() {
-  //   console.log('blur?');
-  // });
   controller.on('focus', function() {
     console.log('focus?');
   });
@@ -44,8 +33,6 @@ var controlSphero = function(sphero) {
   controller.on('frame', function(frame) {
     if (frame.gestures.length) {
       var g = frame.gestures[0];
-      //Trying to make the Sphero turn purple when a heand in
-      // sphero.setRGB(0xFF00FF);
 
       //Basically checks if there is movement. Need to try without the 'stop' one.
       if (g.type == 'swipe' && g.state ==='stop') {
@@ -55,14 +42,12 @@ var controlSphero = function(sphero) {
       //   console.log('circle');
       //   handleCircle(g);
       //  }
-
     }
   });
 
-  // We do not call handleCircle anymore
+  // I think this function resets the heading everytime which makes it look like its rotating.
   // var handleCircle = function(g) {
-  //   // sphero.write(spheron.commands.api.setHeading(10, { resetTimeout:true }));
-  //   sphero.write(spheron.commands.api.setHeading(50, { resetTimeout:true }));
+  //   sphero.write(spheron.commands.api.setHeading(10, { resetTimeout:true }));
   // };
 
   var handleSwipe = function(g) {
@@ -74,7 +59,7 @@ var controlSphero = function(sphero) {
     console.log("X is ", X)
     console.log("Y is ", Y)
 
-    // Gets the absolute values
+    // Gets the absolute values.
     var aX = Math.abs(X);
     var aY = Math.abs(Y);
     var aZ = Math.abs(Z);
@@ -105,12 +90,11 @@ var controlSphero = function(sphero) {
     }
 
     switch (direction) {
+      // Original settings included: 'sphero.heading = (heading value)';
+      // Original speed for all of them: 128.
       case 'LEFT':
-      //Original settings:
-        //sphero.heading = 270;
-        //sphero.roll(128, 270, 1);
         //sphero.roll(speed, heading, state, option)
-        sphero.roll(70, 500, 1);
+        sphero.roll(70, 270, 1); //Heading is expressed in degrees so 270 will make the ball move to the left.
         if (safeMode) {
           setTimeout(function() {
             stopSphero(sphero);
@@ -119,7 +103,7 @@ var controlSphero = function(sphero) {
         break;
       case 'RIGHT':
         sphero.heading = 90;
-        sphero.roll(128, 90, 1);
+        sphero.roll(70, 90, 1);
         if (safeMode) {
           setTimeout(function() {
             stopSphero(sphero);
@@ -137,10 +121,7 @@ var controlSphero = function(sphero) {
          ball.setRGB(spheron.toolbelt.COLORS.WHITE).setBackLED(255);
         break;
       case 'FORWARD':
-        // Original settings:
-        // sphero.heading = 0;
-        // sphero.roll(128, 0, 1);
-         sphero.roll(128, 100, 1);
+         sphero.roll(70, 0, 1);
         if (safeMode) {
           setTimeout(function() {
             stopSphero(sphero);
@@ -149,7 +130,7 @@ var controlSphero = function(sphero) {
         break;
       case 'REVERSE':
         sphero.heading = 180;
-        sphero.roll(128, 180, 1);
+        sphero.roll(70, 180, 1);
         if (safeMode) {
           setTimeout(function() {
             stopSphero(sphero);
@@ -157,7 +138,6 @@ var controlSphero = function(sphero) {
         }
         break;
     }
-
     console.log('Direction: %s', direction);
   }
 
@@ -176,7 +156,6 @@ ball.open(device);
 console.log("waiting for Sphero connection...");
 ball.on('open', function() {
   console.log('connected to Sphero');
-  // ball.setRGB(spheron.toolbelt.COLORS.PURPLE).setBackLED(255);
   ball.setRGB(spheron.toolbelt.COLORS.PURPLE).setBackLED(255);
   controlSphero(ball);
 });
