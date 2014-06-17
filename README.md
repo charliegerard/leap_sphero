@@ -16,26 +16,25 @@ I started working on this code by cloning this repo: https://github.com/alchemyc
 
 https://www.youtube.com/watch?v=3ratT1yCnow&feature=share&list=UUKZdVrHYWr7rVNKbs9_fXnw
 
-However, I am changing the code to make it do more personal commands.
 
 Have fun and let me know if you have any issues or questions!
 
 
 
-##Previous controls from the original repo (these will change on mine):
+##Current controls:
 
-* Rotate finger to set base heading (it only rotates clockwise)
+* Move your fingers/hand UP to make the ball stop & turn blue.
+* Move your fingers/hand DOWN to turn the ball stop & turn white.
 * Push forward to make Sphero go straight ahead (heading of 0°)
 * Pull backward to make Sphero go backward (heading of 180°)
 * Swipe left to make Sphero go left (heading of 270°)
 * Swipe right to make Sphero go right (heading of 90°)
-* Swipe UP or DOWN to stop
+
 
 
 ##Previous notes from the original repo: 
 
 * Set `device` variable to whatever device Sphero connects to your machine has
-* It's currently oversensitive so multiple gestures might get triggered and result in some wild behaviour!
 * There is a timeout of 2000ms to stop Sphero after each gesture to make sure it doesn't go to crazy
 * Set the variable `safeMode = false;` if you are trying it out in water, it's much more fun and Sphero is
 a bit more mellow when in liquid
