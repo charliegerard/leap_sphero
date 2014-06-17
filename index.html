@@ -234,7 +234,8 @@
     Leap.loop(function(frame) {
       var ids = {};
       var hands = frame.hands;
-      var pointables = frame.pointables;
+      var pointables = frame.pointables; //pointables returns values for each fingers tracked.
+
 
       for (var i = 0, hand; hand = hands[i++];) {
         var posX = (hand.palmPosition[0] * 3);
