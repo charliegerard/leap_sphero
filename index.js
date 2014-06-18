@@ -38,26 +38,14 @@ var controlSphero = function(sphero) {
       if (g.type == 'swipe' && g.state ==='stop') {
         handleSwipe(g);
       }
-      // if (g.type == 'circle') {
-      //   console.log('circle');
-      //   handleCircle(g);
-      //  }
     }
   });
-
-  // I think this function resets the heading everytime which makes it look like its rotating.
-  // var handleCircle = function(g) {
-  //   sphero.write(spheron.commands.api.setHeading(10, { resetTimeout:true }));
-  // };
 
   var handleSwipe = function(g) {
     // Checks the difference between the start position and the end position of the fingers on each axis.
     var X = g.position[0] - g.startPosition[0];
     var Y = g.position[1] - g.startPosition[1];
     var Z = g.position[2] - g.startPosition[2];
-    console.log("Z is ", Z)
-    console.log("X is ", X)
-    console.log("Y is ", Y)
 
     // Gets the absolute values.
     var aX = Math.abs(X);
