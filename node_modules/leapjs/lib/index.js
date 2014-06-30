@@ -8,14 +8,16 @@ module.exports = {
   Gesture: require("./gesture"),
   Hand: require("./hand"),
   Pointable: require("./pointable"),
+  Finger: require("./finger"),
   InteractionBox: require("./interaction_box"),
-  Connection: require("./connection"),
   CircularBuffer: require("./circular_buffer"),
   UI: require("./ui"),
+  JSONProtocol: require("./protocol").JSONProtocol,
   glMatrix: require("gl-matrix"),
   mat3: require("gl-matrix").mat3,
   vec3: require("gl-matrix").vec3,
   loopController: undefined,
+  version: require('./version.js'),
   /**
    * The Leap.loop() function passes a frame of Leap data to your
    * callback function and then calls window.requestAnimationFrame() after
@@ -48,12 +50,27 @@ module.exports = {
    * ```
    */
   loop: function(opts, callback) {
-    if (callback === undefined) {
+    if (opts && callback === undefined && (!opts.frame && !opts.hand)) {
       callback = opts;
       opts = {};
     }
-    if (!this.loopController) this.loopController = new this.Controller(opts);
+
+    if (this.loopController) {
+      if (opts){
+        this.loopController.setupFrameEvents(opts);
+      }
+    }else{
+      this.loopController = new this.Controller(opts);
+    }
+
     this.loopController.loop(callback);
     return this.loopController;
+  },
+
+  /*
+   * Convenience method for Leap.Controller.plugin
+   */
+  plugin: function(name, options){
+    this.Controller.plugin(name, options)
   }
 }

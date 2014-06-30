@@ -4,3 +4,10 @@
 node_modules
 *.idea
 docs
+/bin/
+
+/lib/dtrace/
+
+/share/
+
+/ChangeLog

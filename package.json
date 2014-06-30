@@ -11,8 +11,9 @@
   "author": "Charlie Gerard <charlie.a.gerard@gmail.com>",
   "license": "Need to check the licenses available",
   "dependencies": {
-    "leapjs": "~0.2.0",
-    "spheron": "0.0.1"
+    "leapjs": "0.6.1",
+    "spheron": "0.0.3",
+    "express": "4.4.5"
   },
   "devDependencies": {},
   "keywords": [
@@ -26,5 +27,5 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/charliegerard/leap_sphero"
-  },
+  }
 }

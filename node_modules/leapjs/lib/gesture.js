@@ -73,8 +73,9 @@ var createGesture = exports.createGesture = function(data) {
       gesture = new KeyTapGesture(data);
       break;
     default:
-      throw "unkown gesture type";
+      throw "unknown gesture type";
   }
+
  /**
   * The gesture ID.
   *
@@ -96,7 +97,7 @@ var createGesture = exports.createGesture = function(data) {
   * @memberof Leap.Gesture.prototype
   * @type {Array}
   */
-  gesture.handIds = data.handIds;
+  gesture.handIds = data.handIds.slice();
  /**
   * The list of fingers and tools associated with this Gesture, if any.
   *
@@ -106,7 +107,7 @@ var createGesture = exports.createGesture = function(data) {
   * @memberof Leap.Gesture.prototype
   * @type {Array}
   */
-  gesture.pointableIds = data.pointableIds;
+  gesture.pointableIds = data.pointableIds.slice();
  /**
   * The elapsed duration of the recognized movement up to the
   * frame containing this Gesture object, in microseconds.
@@ -157,23 +158,12 @@ var createGesture = exports.createGesture = function(data) {
   return gesture;
 }
 
+/*
+ * Returns a builder object, which uses method chaining for gesture callback binding.
+ */
 var gestureListener = exports.gestureListener = function(controller, type) {
   var handlers = {};
   var gestureMap = {};
-
-  var gestureCreator = function() {
-    var candidateGesture = gestureMap[gesture.id];
-    if (candidateGesture !== undefined) gesture.update(gesture, frame);
-    if (gesture.state == "start" || gesture.state == "stop") {
-      if (type == gesture.type && gestureMap[gesture.id] === undefined) {
-        gestureMap[gesture.id] = new Gesture(gesture, frame);
-        gesture.update(gesture, frame);
-      }
-      if (gesture.state == "stop") {
-        delete gestureMap[gesture.id];
-      }
-    }
-  };
 
   controller.on('gesture', function(gesture, frame) {
     if (gesture.type == type) {

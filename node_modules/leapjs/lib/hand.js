@@ -1,4 +1,5 @@
 var Pointable = require("./pointable")
+  , Bone = require('./bone')
   , glMatrix = require("gl-matrix")
   , mat3 = glMatrix.mat3
   , vec3 = glMatrix.vec3
@@ -136,6 +137,19 @@ var Hand = module.exports = function(data) {
    * @type {Leap.Pointable[]}
    */
   this.fingers = [];
+  
+  if (data.armBasis){
+    this.arm = new Bone(this, {
+      type: 4,
+      width: data.armWidth,
+      prevJoint: data.elbow,
+      nextJoint: data.wrist,
+      basis: data.armBasis
+    });
+  }else{
+    this.arm = null;
+  }
+  
   /**
    * The list of tools detected in this frame that are held by this
    * hand, given in arbitrary order.
@@ -154,7 +168,9 @@ var Hand = module.exports = function(data) {
   /**
    * Time the hand has been visible in seconds.
    *
-   * @member Hand.prototype.timeVisible {float}
+   * @member timeVisible
+   * @memberof Leap.Hand.prototype
+   * @type {number}
    */
    this.timeVisible = data.timeVisible;
 
@@ -165,6 +181,18 @@ var Hand = module.exports = function(data) {
    * @type {number[]}
    */
    this.stabilizedPalmPosition = data.stabilizedPalmPosition;
+
+   /**
+   * Reports whether this is a left or a right hand.
+   *
+   * @member type
+   * @type {String}
+   * @memberof Leap.Hand.prototype
+   */
+   this.type = data.type;
+   this.grabStrength = data.grabStrength;
+   this.pinchStrength = data.pinchStrength;
+   this.confidence = data.confidence;
 }
 
 /**
@@ -190,7 +218,7 @@ var Hand = module.exports = function(data) {
  */
 Hand.prototype.finger = function(id) {
   var finger = this.frame.finger(id);
-  return (finger && finger.handId == this.id) ? finger : Pointable.Invalid;
+  return (finger && (finger.handId == this.id)) ? finger : Pointable.Invalid;
 }
 
 /**
@@ -337,7 +365,7 @@ Hand.prototype.translation = function(sinceFrame) {
  * @returns {String} A description of the Hand as a string.
  */
 Hand.prototype.toString = function() {
-  return "Hand [ id: "+ this.id + " | palm velocity:"+this.palmVelocity+" | sphere center:"+this.sphereCenter+" ] ";
+  return "Hand (" + this.type + ") [ id: "+ this.id + " | palm velocity:"+this.palmVelocity+" | sphere center:"+this.sphereCenter+" ] ";
 }
 
 /**
@@ -411,6 +439,7 @@ Hand.Invalid = {
   fingers: [],
   tools: [],
   pointables: [],
+  left: false,
   pointable: function() { return Pointable.Invalid },
   finger: function() { return Pointable.Invalid },
   toString: function() { return "invalid frame" },
