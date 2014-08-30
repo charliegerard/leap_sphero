@@ -41,5 +41,5 @@ a bit more mellow when in liquid
 
 ##Next steps:
 
-* At the moment, index.html working when launching python server but need to make it work with Node.
+* Try to create modules to make the Sphero move following a pattern (ex: square).
 
