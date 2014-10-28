@@ -12,7 +12,7 @@ module.exports = function() {
   var safeMode = true; //Turn this off if Sphero is in water or you like to live dangerously!
 
   var controlSphero = function(sphero) {
-       
+
   	var controller = new Leap.Controller({frameEventName:'deviceFrame', enableGestures:true});
 
       //Debugging console messages to make sure the Leap Motion is connected and working.
@@ -25,10 +25,10 @@ module.exports = function() {
       controller.on('focus', function() {
           console.log('focus?');
       });
-      controller.on('deviceConnected', function() {
+      controller.on('deviceStreaming', function() {
           console.log('device connected');
       });
-      controller.on('deviceDisconnected', function() {
+      controller.on('deviceStopped', function() {
           console.log('device disconnected');
       });
       controller.on('frame', function(frame) {
@@ -110,7 +110,7 @@ module.exports = function() {
               /*--------------
                 If you want to add a delay between each action, add this in each case,
                 just before the break to add a 2s delay.
-              
+
                 if (safeMode) {
                  setTimeout(function() {
                    stopSphero(sphero);
