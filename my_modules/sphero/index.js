@@ -1,8 +1,5 @@
-// This part should be in a module.
-
 module.exports = function() {
 
-  //require the needed modules
   var Leap = require('leapjs');
   var spheron = require('spheron');
 
@@ -12,10 +9,7 @@ module.exports = function() {
   var safeMode = true; //Turn this off if Sphero is in water or you like to live dangerously!
 
   var controlSphero = function(sphero) {
-
   	var controller = new Leap.Controller({frameEventName:'deviceFrame', enableGestures:true});
-
-      //Debugging console messages to make sure the Leap Motion is connected and working.
       controller.on('connect', function() {
       	console.log('connected to leap motion');
       });
@@ -35,7 +29,6 @@ module.exports = function() {
           if (frame.gestures.length) {
             var g = frame.gestures[0];
 
-            //Basically checks if there is movement. Need to try without the 'stop' one.
             if (g.type == 'swipe' && g.state ==='stop') {
               handleSwipe(g);
             }
