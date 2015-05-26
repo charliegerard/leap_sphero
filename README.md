@@ -1,4 +1,4 @@
-#Experiment using the Leap Motion to control the robotic Sphero ball.
+#Control the Sphero with the Leap Motion.
 
 ####To run this app, follow these steps:
 
