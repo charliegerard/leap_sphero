@@ -1,15 +1,17 @@
 module.exports = function() {
 
   var Leap = require('leapjs');
-  var spheron = require('spheron');
+  var sphero = require("sphero");
 
   // Set this to the device Sphero connects as on your computer.
-  var device = '/dev/tty.Sphero-RBR-AMP-SPP';
+  var device = sphero("/dev/tty.Sphero-RBR-AMP-SPP");
 
   var safeMode = true; //Turn this off if Sphero is in water or you like to live dangerously!
 
-  var controlSphero = function(sphero) {
-  	var controller = new Leap.Controller({frameEventName:'deviceFrame', enableGestures:true});
+  var controlSphero = function(spheroBall) {
+
+      var controller = Leap.loop({frameEventName:'deviceFrame', enableGestures:true});
+
       controller.on('connect', function() {
       	console.log('connected to leap motion');
       });
@@ -26,78 +28,72 @@ module.exports = function() {
           console.log('device disconnected');
       });
       controller.on('frame', function(frame) {
-          if (frame.gestures.length) {
-            var g = frame.gestures[0];
-
-            if (g.type == 'swipe' && g.state ==='stop') {
-              handleSwipe(g);
-            }
-          }
+        // if(frame.valid && frame.gestures.length > 0){
+          // frame.gestures.forEach(function(gesture){
+            // if(gesture.type == 'swipe'){
+              if(frame.hands[0]){
+                var g = frame.hands[0];
+                handleSwipe(g);
+              }
+            // }
+          // });
+        // }
       });
 
+
       var handleSwipe = function(g) {
-          // Checks the difference between the start position and the end position of the fingers on each axis.
-          var X = g.position[0] - g.startPosition[0];
-          var Y = g.position[1] - g.startPosition[1];
-          var Z = g.position[2] - g.startPosition[2];
+        // var g = frame.hands[0];
+            var previousFrame = controller.frame(1);
+            var movement = g.translation(previousFrame);
+            var direction = '?';
 
-          // Gets the absolute values.
-          var aX = Math.abs(X);
-          var aY = Math.abs(Y);
-          var aZ = Math.abs(Z);
+            if(movement[0] > 4){
+              direction = 'RIGHT'
+            } else if(movement[0] < -4){
+               direction = 'LEFT'
+            }
 
-          // Gets the maximum value to check in which direction the user moved its fingers.
-          var big = Math.max(aX, aY, aZ);
-          // direction gets returned in the console. default value is '?'. Not necessary.
-          var direction = '?';
+            if(movement[1] > 4){
+              direction = 'UP'
+            } else if(movement[1] < -4){
+              direction = 'DOWN'
+            }
 
-          // If the maximum value returned is the X one, execute the cases called "LEFT" or "RIGHT".
-          if (aX === big) {
-            direction = 'RIGHT';
-            if (X < 0) {
-              direction = 'LEFT';
+            if(movement[2] > 4){
+              direction = 'REVERSE'
+            } else if(movement[2] < -4){
+              direction = 'FORWARD'
             }
-          // If the maximum value returned is the Y one, execute the cases called "UP" or "DOWN".
-          } else if (aY === big) {
-            direction = 'UP';
-            if (Y < 0) {
-              direction = 'DOWN';
-            }
-          // If the maximum value returned is the Z one, execute the cases "FORWARD" or "REVERSE".
-          } else if (aZ === big) {
-            direction = 'REVERSE';
-            if (Z < 0) {
-              direction = 'FORWARD';
-            }
-          }
 
           switch (direction) {
             // Original settings included: 'sphero.heading = (heading value)';
             // Original speed for all of them: 128.
             case 'LEFT':
+              console.log('left')
               //sphero.roll(speed, heading, state, option)
-              sphero.roll(70, 270, 1); //Heading is expressed in degrees so 270 will make the ball move to the left.
+              spheroBall.roll(70, 270, 1); //Heading is expressed in degrees so 270 will make the ball move to the left.
               break;
             case 'RIGHT':
-              sphero.heading = 90;
-              sphero.roll(70, 90, 1);
+              spheroBall.heading = 90;
+              spheroBall.roll(70, 90, 1);
               break;
             case 'UP':
-              stopSphero(sphero);
+              stopSphero(spheroBall);
+              console.log('up')
               //Make the ball turn blue when users move their hand up.
-              ball.setRGB(spheron.toolbelt.COLORS.BLUE).setBackLED(255);
+              // ball.setRGB(spheron.toolbelt.COLORS.BLUE).setBackLED(255);
               break;
             case 'DOWN':
-              stopSphero(sphero);
+              stopSphero(spheroBall);
               //Make the ball turn white when users move their hand down.
-               ball.setRGB(spheron.toolbelt.COLORS.WHITE).setBackLED(255);
+               // ball.setRGB(spheron.toolbelt.COLORS.WHITE).setBackLED(255);
               break;
             case 'FORWARD':
-               sphero.roll(70, 0, 1);
+               spheroBall.roll(70, 0, 1);
               break;
             case 'REVERSE':
-              sphero.heading = 180;
-              sphero.roll(70, 180, 1);
+              spheroBall.heading = 180;
+              spheroBall.roll(70, 180, 1);
               break;
 
               /*--------------
@@ -119,18 +115,16 @@ module.exports = function() {
       };
 
   // Stops the Sphero from rolling.
-  var stopSphero = function(sphero) {
-      sphero.roll(0,sphero.heading||0,0);
+  var stopSphero = function(spheroBall) {
+      spheroBall.roll(0,spheroBall.heading||0,0);
   };
 
-  var ball = spheron.sphero().resetTimeout(true);
-      ball.open(device);
-
   console.log("waiting for Sphero connection...");
-  ball.on('open', function() {
+
+  device.connect(function() {
   	console.log('connected to Sphero');
-      ball.setRGB(spheron.toolbelt.COLORS.PURPLE).setBackLED(255);
-      controlSphero(ball);
+      // ball.setRGB(spheron.toolbelt.COLORS.PURPLE).setBackLED(255);
+      controlSphero(device);
   });
 
 };
