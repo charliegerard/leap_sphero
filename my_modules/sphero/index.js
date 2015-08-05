@@ -26,14 +26,14 @@ module.exports = function() {
       });
       controller.on('frame', function(frame) {
         if(frame.hands[0]){
-          var gesture = frame.hands[0];
-          handleSwipe(gesture);
+          var hand = frame.hands[0];
+          handleSwipe(hand);
         }
       });
 
-      var handleSwipe = function(gesture) {
+      var handleSwipe = function(hand) {
         var previousFrame = controller.frame(1);
-        var movement = gesture.translation(previousFrame);
+        var movement = hand.translation(previousFrame);
         var direction = '?';
 
         if(movement[0] > 4){
@@ -77,7 +77,8 @@ module.exports = function() {
             spheroBall.roll(70, 180, 1);
             break;
         }
-      	console.log('Direction: ', direction);
+
+        console.log('Direction: ', direction);
       }
 
       controller.connect();
