@@ -93,7 +93,7 @@ module.exports = function() {
 
   device.connect(function() {
   	console.log('connected to Sphero');
-    device.setRGB(spheron.toolbelt.COLORS.PURPLE).setBackLED(255);
+    // device.setRGB(spheron.toolbelt.COLORS.PURPLE).setBackLED(255);
     controlSphero(device);
   });
 
