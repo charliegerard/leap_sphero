@@ -6,8 +6,8 @@ var express = require('express'),
 var app = express();
 
 //require the custom module
-var test = require('./my_modules/sphero');
-test();
+var myModule = require('./my_modules/sphero');
+myModule();
 
 // Everything in public will be accessible from '/'
 app.use(express.static(path.join(__dirname, 'public')));
@@ -19,7 +19,3 @@ app.all('*', function(req, res){
 
 app.listen(3001);
 console.log("server running on port 3001");
-
-
-
-

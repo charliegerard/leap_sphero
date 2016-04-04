@@ -5,11 +5,10 @@
   "description": "Experiment using the Leap Motion to control the Sphero robotic ball",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "author": "Charlie Gerard <charlie.a.gerard@gmail.com>",
-  "license": "Need to check the licenses available",
+  "license": "MIT License",
   "dependencies": {
     "express": "^4.4.5",
     "leapjs": "^0.6.1",
@@ -21,7 +20,8 @@
     "leap",
     "motion",
     "nodebot",
-    "nodebots"
+    "nodebots",
+    "leap motion"
   ],
   "repository": {
     "type": "git",
