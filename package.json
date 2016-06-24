@@ -11,8 +11,9 @@
   "license": "MIT License",
   "dependencies": {
     "express": "^4.4.5",
-    "leapjs": "^0.6.1",
-    "sphero": "^0.2.0"
+    "leapjs": "^0.6.4",
+    "serialport": "^3.1.2",
+    "sphero": "^0.9.2"
   },
   "devDependencies": {},
   "keywords": [
