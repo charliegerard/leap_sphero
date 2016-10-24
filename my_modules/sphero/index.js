@@ -6,7 +6,8 @@ module.exports = function() {
   var pastDirection;
 
   // Set this to the port the Sphero uses on your computer.
-  var device = sphero("/dev/tty.Sphero-RBR-AMP-SPP");
+  // var device = sphero("/dev/tty.Sphero-RBR-AMP-SPP");
+  var device = sphero("/dev/tty.Sphero-RBR-AMP-SPP-1")
 
   var safeMode = true; //Turn this off if Sphero is in water or you like to live dangerously!
 
@@ -82,6 +83,8 @@ module.exports = function() {
 
       if(pastDirection != direction){
         console.log('Direction: ', direction);
+      } else {
+        return;
       }
     };
 
