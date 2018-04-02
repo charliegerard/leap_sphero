@@ -1,20 +1,12 @@
-//require modules
-var express = require('express'),
-    path = require('path');
+const express = require('express'),
+      path = require('path');
+const app = express();
+const myModule = require('./sphero_module')();
 
-//create web server
-var app = express();
-
-//require the custom module
-var myModule = require('./my_modules/sphero');
-myModule();
-
-// Everything in public will be accessible from '/'
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'views')));
 
-app.all('*', function(req, res){
-  res.sendfile('views/index.html');
+app.all('*', (req, res) => {
+  res.sendfile('public/index.html');
 });
 
 app.listen(3001);
