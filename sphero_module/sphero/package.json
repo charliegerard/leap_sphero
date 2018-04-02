@@ -1,0 +1,74 @@
+{
+  "_args": [
+    [
+      "sphero@0.9.2",
+      "/Users/charlieg/Projects/personal-projects-github/leap_sphero"
+    ]
+  ],
+  "_from": "sphero@0.9.2",
+  "_id": "sphero@0.9.2",
+  "_inBundle": false,
+  "_integrity": "sha1-szMamDaTcybHj7copwn77PfrEIQ=",
+  "_location": "/sphero",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "sphero@0.9.2",
+    "name": "sphero",
+    "escapedName": "sphero",
+    "rawSpec": "0.9.2",
+    "saveSpec": null,
+    "fetchSpec": "0.9.2"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/sphero/-/sphero-0.9.2.tgz",
+  "_spec": "0.9.2",
+  "_where": "/Users/charlieg/Projects/personal-projects-github/leap_sphero",
+  "author": {
+    "name": "Orbotix Inc."
+  },
+  "bugs": {
+    "url": "https://github.com/orbotix/sphero.js/issues"
+  },
+  "dependencies": {
+    "bluebird": "^3.3.4",
+    "browser-serialport": "^2.0.2"
+  },
+  "description": "Sphero.js - The Official Orbotix JavaScript SDK to control Sphero robots",
+  "devDependencies": {
+    "browserify": "10.2.3",
+    "chai": "2.3.0",
+    "eslint": "0.22.1",
+    "grunt": "0.4.5",
+    "mocha": "2.2.5",
+    "sinon": "1.14.1",
+    "sinon-chai": "2.7.0",
+    "uglify-js": "2.4.23"
+  },
+  "homepage": "http://www.sphero.com/",
+  "keywords": [
+    "robot",
+    "robots",
+    "robotics",
+    "hardware",
+    "sphero",
+    "spherojs",
+    "sphero-js",
+    "orbotix",
+    "ollie",
+    "bb8",
+    "bb-8",
+    "sprk"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "sphero",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orbotix/sphero.js.git"
+  },
+  "version": "0.9.2"
+}

@@ -1,5 +1,7 @@
 const Leap = require('leapjs'),
-      sphero = require("sphero");
+      // Modified local version of the Sphero.js module to work with the latest version of serialport.
+      // Pull request submitted on the official repo. Will update this file if merged in official module.
+      sphero = require("./sphero");
 let newDirection = '?';
 let previousDirection, controller;
 
@@ -11,7 +13,7 @@ const FORWARD = 'FORWARD';
 const BACKWARD = 'BACKWARD';
 
 // Set this to the port the Sphero uses on your computer.
-// If this one does not work, enter `ls /dev/tty*` in your terminal to find the
+// If this one does not work, enter `ls /dev/tty.Sphero*` in your terminal to find the
 // right one (on Mac).
 const spheroBall = sphero("/dev/tty.Sphero-RBR-AMP-SPP");
 
